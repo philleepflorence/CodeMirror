@@ -22,7 +22,14 @@
  * See demos/closetag.html for a usage example.
  */
 
-(function() {
+(function(mod) {
+  if (typeof exports == "object" && typeof module == "object") // CommonJS
+    mod(require("../../lib/codemirror"));
+  else if (typeof define == "function" && define.amd) // AMD
+    define(["../../lib/codemirror"], mod);
+  else // Plain browser env
+    mod(CodeMirror);
+})(function(CodeMirror) {
   CodeMirror.defineOption("autoCloseTags", false, function(cm, val, old) {
     if (old != CodeMirror.Init && old)
       cm.removeKeyMap("autoCloseTags");
@@ -102,4 +109,4 @@
       if (collection[i] == elt) return i;
     return -1;
   }
-})();
+});
